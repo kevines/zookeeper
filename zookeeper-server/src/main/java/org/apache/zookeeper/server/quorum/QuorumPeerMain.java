@@ -134,11 +134,11 @@ public class QuorumPeerMain {
         purgeMgr.start();
 
         if (args.length == 1 && config.isDistributed()) {
-            runFromConfig(config);
+            runFromConfig(config); // 走集群
         } else {
             LOG.warn("Either no config or no quorum defined in config, running in standalone mode");
             // there is only server in the quorum -- run as standalone
-            ZooKeeperServerMain.main(args);
+            ZooKeeperServerMain.main(args); // 走单机
         }
     }
 
@@ -174,12 +174,12 @@ public class QuorumPeerMain {
                 secureCnxnFactory.configure(config.getSecureClientPortAddress(), config.getMaxClientCnxns(), config.getClientPortListenBacklog(), true);
             }
 
-            quorumPeer = getQuorumPeer();
+            quorumPeer = getQuorumPeer(); // 初始化
             quorumPeer.setTxnFactory(new FileTxnSnapLog(config.getDataLogDir(), config.getDataDir()));
             quorumPeer.enableLocalSessions(config.areLocalSessionsEnabled());
             quorumPeer.enableLocalSessionsUpgrading(config.isLocalSessionsUpgradingEnabled());
             //quorumPeer.setQuorumPeers(config.getAllMembers());
-            quorumPeer.setElectionType(config.getElectionAlg());
+            quorumPeer.setElectionType(config.getElectionAlg()); // 分片数
             quorumPeer.setMyid(config.getServerId());
             quorumPeer.setTickTime(config.getTickTime());
             quorumPeer.setMinSessionTimeout(config.getMinSessionTimeout());
@@ -196,7 +196,7 @@ public class QuorumPeerMain {
                 quorumPeer.setLastSeenQuorumVerifier(config.getLastSeenQuorumVerifier(), false);
             }
             quorumPeer.initConfigInZKDatabase();
-            quorumPeer.setCnxnFactory(cnxnFactory);
+            quorumPeer.setCnxnFactory(cnxnFactory); // IO通信 Factory
             quorumPeer.setSecureCnxnFactory(secureCnxnFactory);
             quorumPeer.setSslQuorum(config.isSslQuorum());
             quorumPeer.setUsePortUnification(config.shouldUsePortUnification());

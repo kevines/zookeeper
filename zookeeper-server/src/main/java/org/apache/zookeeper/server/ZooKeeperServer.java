@@ -426,7 +426,7 @@ public class ZooKeeperServer implements SessionExpirer, ServerStats.Provider {
     }
 
     public ServerStats serverStats() {
-        return serverStats;
+        return serverStats; // 统计 zookeeper 在服务运行时的状态信息统计
     }
 
     public RequestPathMetricsCollector getRequestPathMetricsCollector() {

@@ -107,8 +107,8 @@ public class ServerConfig {
     public void readFrom(QuorumPeerConfig config) {
         clientPortAddress = config.getClientPortAddress();
         secureClientPortAddress = config.getSecureClientPortAddress();
-        dataDir = config.getDataDir();
-        dataLogDir = config.getDataLogDir();
+        dataDir = config.getDataDir(); // 快照数据文件
+        dataLogDir = config.getDataLogDir(); // 日志数据文件
         tickTime = config.getTickTime();
         maxClientCnxns = config.getMaxClientCnxns();
         minSessionTimeout = config.getMinSessionTimeout();

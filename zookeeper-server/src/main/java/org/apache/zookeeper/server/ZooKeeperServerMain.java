@@ -136,7 +136,7 @@ public class ZooKeeperServerMain {
             // so rather than spawning another thread, we will just call
             // run() in this thread.
             // create a file logger url from the command line args
-            txnLog = new FileTxnSnapLog(config.dataLogDir, config.dataDir);
+            txnLog = new FileTxnSnapLog(config.dataLogDir, config.dataDir); // zookeeper 服务层提供底层持久化接口
             JvmPauseMonitor jvmPauseMonitor = null;
             if (config.jvmPauseMonitorToRun) {
                 jvmPauseMonitor = new JvmPauseMonitor(config);
